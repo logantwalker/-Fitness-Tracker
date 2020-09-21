@@ -7,6 +7,7 @@ const PORT = 3000;
 const app = express();
 
 const htmlRoutes = require('./routes/html-routes');
+const apiRoutes = require('./routes/api-routes')
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
