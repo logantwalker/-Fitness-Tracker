@@ -6,4 +6,7 @@ const routeControl = require('../controller/route-control');
 
 const router = express.Router();
 
-// router.get('/', routeControl.getIndex);
+//render index.html
+router.get('/', routeControl.getIndex);
+
+module.exports = router
