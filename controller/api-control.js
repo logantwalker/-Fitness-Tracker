@@ -4,6 +4,10 @@ const Workout = require('../models/workout');
 
 exports.fetchAll =  (req, res, next) => {
     Workout.find()
-        .then(result => res.json(result))
+        .then(result => {
+            res.json(result);
+
+            return result;
+        })
         .catch(err => console.log(err))
 }

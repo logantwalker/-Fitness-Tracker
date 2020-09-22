@@ -17,5 +17,6 @@ const workoutSchema = new Schema({
 });
 
 
+
 //function that connects schema with model name. input model name (string) and schema (object)
 module.exports = mongoose.model('Workout',workoutSchema);
