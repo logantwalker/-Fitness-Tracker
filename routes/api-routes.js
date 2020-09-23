@@ -12,6 +12,6 @@ router.post('/api/workouts',apiControl.postNewWorkout);
 
 router.put('/api/workouts/:id', apiControl.postAddExercise);
 
-router.get('/api/workouts/range')
+router.get('/api/workouts/range',apiControl.fetchAll);
 
 module.exports = router
