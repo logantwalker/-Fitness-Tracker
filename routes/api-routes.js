@@ -8,6 +8,10 @@ const router = express.Router();
 
 router.get('/api/workouts', apiControl.fetchAll);
 
-router.post('api/workouts',apiControl.postNewWorkout);
+router.post('/api/workouts',apiControl.postNewWorkout);
+
+router.put('/api/workouts/:id', apiControl.postAddExercise);
+
+router.get('/api/workouts/range')
 
 module.exports = router

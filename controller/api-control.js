@@ -12,56 +12,70 @@ exports.fetchAll =  (req, res, next) => {
         .catch(err => console.log(err))
 }
 
-exports.postNewWorkout = (req, res, next) => {
+exports.postNewWorkout = (req, res, next) =>{
+    let exercises =[];
+    const workout = new Workout ({
+        day: undefined,
+        exercises: exercises
+    });
+    workout.save()
+        .then(result =>{
+            console.log(result);
+        })
+        .catch(err => console.log(err));
+}
+
+exports.postAddExercise = (req, res, next) => {
     const type = req.body.type;
     const name = req.body.name;
     const duration = req.body.duration
-    let weight;
-    let sets;
-    let reps;
-    let distance;
     if(type === 'resistance'){
-        weight = req.body.weight;
-        sets = req.body.sets;
-        reps = req.body.reps;
-        const exercises = [{
+        const weight = req.body.weight;
+        const sets = req.body.sets;
+        const reps = req.body.reps;
+        const exercises = {
             type: type,
             name: name,
             duration: duration,
             weight: weight,
             reps: reps,
             sets: sets
-        }]
-        const workout = new Workout ({
-            day: undefined,
-            exercises: exercises
-        });
+        };
 
-        workout.save()
-            .then(result =>{
-                console.log(result)
-            })
-            .catch(err => console.log(err));
+        if(req.params.id){
+            Workout.findOne({_id:req.params.id}).limit(1).then(workout => {
+                workout.exercises.push(exercises);
+                return workout.save();
+            }).catch(err => console.log(err));
+        }
+        else{
+            Workout.findOne().sort({day: -1}).limit(1).then(workout => {
+                workout.exercises.push(exercises);
+                return workout.save();
+            }).catch(err => console.log(err));
+        }
+
     }
     else if(type === 'cardio'){
-        distance = req.body.distance;
-
-        const exercises = [{
+        const distance = req.body.distance;
+        const exercises = {
             type: type,
             name: name,
             duration: duration,
             distance: distance
-        }];
+        };
 
-        const workout = new Workout ({
-            day: undefined,
-            exercises: exercises
-        });
-
-        workout.save()
-            .then(result =>{
-                console.log(result)
-            })
-            .catch(err => console.log(err));
+        if(req.params.id){
+            Workout.findOne({_id: req.params.id}).limit(1).then(workout => {
+                workout.exercises.push(exercises);
+                return workout.save();
+            }).catch(err => console.log(err));
+        }
+        else{
+            Workout.findOne().sort({day: -1}).limit(1).then(workout => {
+                workout.exercises.push(exercises);
+                return workout.save();
+            }).catch(err => console.log(err));
+        }
     }
   };
