@@ -50,7 +50,7 @@ exports.postAddExercise = (req, res, next) => {
         }
         else{
             Workout.findOne().sort({day: -1}).limit(1).then(workout => {
-                workout.exercises.push(exercises);
+                workout.exercises = exercises;
                 return workout.save();
             }).catch(err => console.log(err));
         }
